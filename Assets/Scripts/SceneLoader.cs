@@ -19,7 +19,6 @@ public class SceneLoader : MonoBehaviour
         loadingScreen.SetActive(true);
         loadingBar.value = 0;
 
-        // Fake loading bar that fills over 3 seconds
         float timer = 0f;
         while (timer < 3f)
         {
