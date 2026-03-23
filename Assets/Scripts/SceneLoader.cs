@@ -13,17 +13,6 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(LoadSceneAsyncronously(levelIndex));
     }
 
-    // IEnumerator LoadSceneAsyncronously(int levelIndex)
-    // {
-    //     AsyncOperation operation = SceneManager.LoadSceneAsync(levelIndex);
-    //     while (!operation.isDone)
-    //     {
-    //         loadingScreen.SetActive(true);
-    //         Debug.Log("Loading progress: " + (operation.progress * 100) + "%");
-    //         loadingBar.value = operation.progress;
-    //         yield return null;
-    //     }
-    // }
 
     IEnumerator LoadSceneAsyncronously(int levelIndex)
     {
