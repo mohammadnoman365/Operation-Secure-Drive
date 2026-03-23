@@ -37,20 +37,16 @@ public class GunScript : MonoBehaviour
 
         hardDrivePickupButton.SetActive(false);
 
-        // Hide wining panel at start
         winingPanel.SetActive(false);
 
-        // Show Objective panel at start
         ObjectivePanel.SetActive(true);
     }
 
     void Update()
     {
-        // If the player has won the game, do not allow shooting
         if (winingPanel.activeSelf)
             return;
 
-        // If the Objective panel is active, do not allow shooting
         if (ObjectivePanel.activeSelf)
             return;
 
@@ -70,7 +66,6 @@ public class GunScript : MonoBehaviour
             PlayMuzzleFlash();
             UpdateUI();
 
-            // Check if the bullet hit an enemy
             RaycastHit hit;
             if (Physics.Raycast(FpsCam.transform.position, FpsCam.transform.forward, out hit, range))
             {
@@ -98,7 +93,6 @@ public class GunScript : MonoBehaviour
     }
 
 
-    // Function to play muzzle flash effects
     void PlayMuzzleFlash()
     {
         bulletSound.Play();
@@ -116,7 +110,6 @@ public class GunScript : MonoBehaviour
         muzzleFlashLight.enabled = false;
     }
 
-    // Function to check if the player is looking at an ammo box
     void CheckForAmmoBox()
     {
         RaycastHit hit;
@@ -131,29 +124,26 @@ public class GunScript : MonoBehaviour
             }
         }
 
-        // If not looking at an ammo box, hide the text
         ammoPickupButton.SetActive(false);
         currentAmmoBox = null;
     }
 
 
-    // Function to collect ammo
     void CollectAmmo()
     {
         ammoSound.Play();
-        Bullets += 30; // Refill bullets
+        Bullets += 30; 
         BulletText.text = Bullets.ToString();
         ammoPickupButton.SetActive(false);
 
         if (currentAmmoBox != null)
         {
-            Destroy(currentAmmoBox); // Destroy the ammo box
+            Destroy(currentAmmoBox); 
             currentAmmoBox = null;
         }
     }
 
 
-    // Function to check if the player is looking at the target
     void CheckTarget()
     {
         RaycastHit hit;
@@ -172,13 +162,12 @@ public class GunScript : MonoBehaviour
     }
 
 
-    // Function to collect the target
     void CollectTarget()
     {
         if (targetBox != null)
         {
             hardDrivePickupButton.SetActive(false);
-            Destroy(targetBox); // Destroy the ammo box
+            Destroy(targetBox); 
             targetBox = null;
             winingPanel.SetActive(true);
         }
