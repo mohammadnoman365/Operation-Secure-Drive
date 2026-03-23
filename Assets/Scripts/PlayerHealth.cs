@@ -23,11 +23,9 @@ public class PlayerHealth: MonoBehaviour
 
     void Start()
     {
-        // Hide the damage panel at start  
         DamagePanel.SetActive(false);
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
 
-        // Find the player object  
         if (playerObject != null)
         {
             player = playerObject.transform;
@@ -36,7 +34,6 @@ public class PlayerHealth: MonoBehaviour
         healthSlider.maxValue = 100;
         UpdateHealthUI();
 
-        // Hide the noHealth text at start  
         HealthSufficientText.SetActive(false);
         DamagePanel.SetActive(false);
         GameOverPanel.SetActive(false);
@@ -45,7 +42,6 @@ public class PlayerHealth: MonoBehaviour
     void Update()
     {
 
-        // If the player has won the game, do not allow shooting  
         if (player == null) return;
 
         if (Health <= 0)
@@ -53,7 +49,6 @@ public class PlayerHealth: MonoBehaviour
             GameOverPanel.SetActive(true);
         }
 
-        // Check if the player is looking at an ammo box  
         CheckForHealthBox();
     }
 
@@ -62,7 +57,6 @@ public class PlayerHealth: MonoBehaviour
         HealthSufficientText.SetActive(false);
     }
 
-    // Check if the player is looking at an ammo box  
     void CheckForHealthBox()
     {
         RaycastHit hit;
@@ -77,23 +71,21 @@ public class PlayerHealth: MonoBehaviour
             }
         }
 
-        // If not looking at an ammo box, hide the text  
         healthPickupButton.SetActive(false);
         currentHealthBox = null;
     }
 
-    // Collect ammo from the ammo box  
     void CollectHealth()
     {
-        audioSource.PlayOneShot(HealthSound); // Play health pickup sound
+        audioSource.PlayOneShot(HealthSound); 
 
-        Health = Mathf.Min(Health + 10, 100); // Ensures Health never exceeds 100  
+        Health = Mathf.Min(Health + 10, 100); 
         UpdateHealthUI();
         healthPickupButton.SetActive(false);
 
         if (currentHealthBox != null)
         {
-            Destroy(currentHealthBox); // Destroy the health box  
+            Destroy(currentHealthBox); 
             currentHealthBox = null;
         }
     }
@@ -119,17 +111,14 @@ public class PlayerHealth: MonoBehaviour
         UpdateHealthUI();
     }
 
-    // Add this method to PlayerHealth.cs
     public void TakeDamage(int damage)
     {
         Health -= damage;
         healthSlider.value = Health;
 
-        // Show damage panel briefly
         DamagePanel.SetActive(true);
         Invoke(nameof(HideDamagePanel), 0.3f);
 
-        // Play damage sound if available
         if (DeathSound != null)
         {
             audioSource.PlayOneShot(DeathSound);
